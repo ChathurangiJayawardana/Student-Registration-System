@@ -29,7 +29,7 @@ namespace StudentRegistrationApplication.Controllers
             {
                 AcademicTypes = academicTypes
             };
-            return View("New", viewModel);
+            return View(viewModel);
         }
         // GET: Students
         public ViewResult Index()
