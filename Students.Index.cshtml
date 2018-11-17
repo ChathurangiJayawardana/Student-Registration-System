@@ -23,7 +23,7 @@ else
             @foreach (var student in Model)
             {
             <tr>
-                <td>@Html.ActionLink(student.Name, "Details", "Students", new { id = student.Id }, null)</td>
+                <td>@Html.ActionLink(student.Name, "Edit", "Students", new { id = student.Id }, null)</td>
                 <td>@student.AcademicType.DegreeName</td>
             </tr>
             }

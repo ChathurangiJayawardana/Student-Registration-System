@@ -21,6 +21,19 @@ namespace StudentRegistrationApplication.Controllers
         {
             _context.Dispose();
         }
+        public ActionResult Edit(int id)
+        {
+            var student = _context.Students.SingleOrDefault(c => c.Id == id);
+            if (student == null)
+                return HttpNotFound();
+            var viewModel = new NewStudentViewModel
+            {
+                Student = student,
+                AcademicTypes = _context.AcademicTypes.ToList()
+            };
+            return View("New", viewModel);
+        }
+
         [HttpPost]
         public ActionResult Create(Student student)
         {
