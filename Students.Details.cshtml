@@ -1,21 +1,19 @@
-﻿
-@model StudentRegistrationApplication.Models.Student
-
+﻿@model StudentRegistrationApplication.Models.Student
 
 @{
-
-
     ViewBag.Title = Model.Name;
-
-
     Layout = "~/Views/Shared/_Layout.cshtml";
-
-
 }
 
 
 
-
-
 <h2>@Model.Name</h2>
+<ul>
+    <li>Index No:@Model.IndexNo</li>
+    <li>Degree:@Model.AcademicType.DegreeName</li>
+    @if(Model.RegisterDate.HasValue)
+    {
+        <li>Register Date:@Model.RegisterDate.Value.ToShortDateString()</li>
+    }
+</ul>
 
