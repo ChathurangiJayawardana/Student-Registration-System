@@ -6,7 +6,7 @@ using System.Web;
 
 namespace StudentRegistrationApplication.ViewModels
 {
-    public class NewStudentViewModel
+    public class StudentFormViewModel
     {
         public IEnumerable<AcademicType> AcademicTypes { get; set; }
         public Student Student { get; set; }

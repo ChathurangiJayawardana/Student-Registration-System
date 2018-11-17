@@ -16,7 +16,7 @@ namespace StudentRegistrationApplication.Models
         public string IndexNo { get; set; }
         [Display(Name="Register Date")]
         public DateTime? RegisterDate { get; set; }
-
+        [Display(Name="Degree Name")]
         public AcademicType AcademicType { get; set; }
       
         public byte AcademicTypeId { get; set; }
