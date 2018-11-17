@@ -15,7 +15,7 @@ else
         <thead>
             <tr>
                 <th>Student</th>
-                <th>Year</th>
+                <th>DegreeName</th>
 
             </tr>
         </thead>
@@ -24,7 +24,7 @@ else
             {
             <tr>
                 <td>@Html.ActionLink(student.Name, "Details", "Students", new { id = student.Id }, null)</td>
-                <td>@student.AcademicType.Year</td>
+                <td>@student.AcademicType.DegreeName</td>
             </tr>
             }
         </tbody>
