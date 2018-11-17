@@ -1,6 +1,7 @@
 ﻿using StudentRegistrationApplication.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -22,16 +23,15 @@ namespace StudentRegistrationApplication.Controllers
         // GET: Students
         public ViewResult Index()
         {
-            var students = _context.Students;
+            var students = _context.Students.Include(c =>c.AcademicType).ToList();
             return View(students);
         }
         public ActionResult Details(int id)
         {
-            var student = _context.Students.SingleOrDefault(c => c.Id == id);
+            var student = _context.Students.Include(c => c.AcademicType).SingleOrDefault(c => c.Id == id);
             if (student == null)
                 return HttpNotFound();
             return View(student);
         }
-      
     }
 }

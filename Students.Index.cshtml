@@ -3,11 +3,11 @@
     ViewBag.Title = "Students";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <h2>Students</h2>
 @if (!Model.Any())
 {
     <p>we don't have any students yet. </p>
-
 }
 else
 {
@@ -15,22 +15,18 @@ else
         <thead>
             <tr>
                 <th>Student</th>
+                <th>Year</th>
+
             </tr>
-        
         </thead>
-
-
         <tbody>
             @foreach (var student in Model)
             {
-                <tr>
-                    <td>@Html.ActionLink(student.Name, "Details", "Students", new { id = student.Id }, null)</td>
-                </tr>
+            <tr>
+                <td>@Html.ActionLink(student.Name, "Details", "Students", new { id = student.Id }, null)</td>
+                <td>@student.AcademicType.Year</td>
+            </tr>
             }
         </tbody>
-
-
     </table>
-
-
 }
