@@ -37,6 +37,18 @@ namespace StudentRegistrationApplication.Controllers
         [HttpPost]
         public ActionResult Save(Student student)
         {
+            if (!ModelState.IsValid)
+            {
+                var viewModel = new StudentFormViewModel
+                {
+                    Student = student,
+                    AcademicTypes = _context.AcademicTypes.ToList()
+
+            };
+
+                return View("StudentForm", viewModel);
+            }
+
             if (student.Id == 0)
                 _context.Students.Add(student);
             else
