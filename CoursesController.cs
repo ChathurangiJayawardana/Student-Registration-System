@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using StudentRegistrationApplication.ViewModels;
 
 namespace StudentRegistrationApplication.Controllers
 {
@@ -19,6 +20,46 @@ namespace StudentRegistrationApplication.Controllers
         {
             _context.Dispose();
         }
+        public ActionResult Edit(int id)
+        {
+            var course = _context.Courses.SingleOrDefault(c => c.Id == id);
+            if (course == null)
+                return HttpNotFound();
+            var viewModel = new CourseFormViewModel
+            {
+                Course = course,
+                Departments = _context.Departments.ToList()
+            };
+            return View("CourseForm", viewModel);
+        }
+        [HttpPost]
+        public ActionResult Save(Course course)
+        {
+            if (course.Id == 0)
+                _context.Courses.Add(course);
+            else
+            {
+                var courseInDb = _context.Courses.Single(c => c.Id == course.Id);
+
+                courseInDb.Name = course.Name;
+                courseInDb.DepartmentId = course.DepartmentId;
+                courseInDb.GPA = course.GPA;
+
+            }
+
+            _context.SaveChanges();
+            return RedirectToAction("Index", "Courses");
+        }
+        public ViewResult CourseForm()
+        {
+            var departments = _context.Departments.ToList();
+            var viewModel = new CourseFormViewModel
+            {
+                Departments = departments
+            };
+            return View("CourseForm", viewModel);
+        }
+
         // GET: Courses
         public ViewResult Index()
         {

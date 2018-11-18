@@ -1,0 +1,27 @@
+﻿@model StudentRegistrationApplication.ViewModels.CourseFormViewModel
+@{
+    ViewBag.Title = "CourseForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<h2>New Course</h2>
+
+@using (Html.BeginForm("Save", "Courses"))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.Course.Name)
+        @Html.TextBoxFor(m => m.Course.Name, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Course.DepartmentId)
+        @Html.TextBoxFor(m => m.Course.DepartmentId, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Course.GPA)
+        @Html.TextBoxFor(m => m.Course.GPA, new { @class = "form-control" })
+    </div>
+    @Html.HiddenFor(m => m.Course.Id)
+    <button type="submit" class="btn btn-primary">Submit</button>
+}

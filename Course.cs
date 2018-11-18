@@ -13,8 +13,10 @@ namespace StudentRegistrationApplication.Models
         [StringLength(255)]
         public string Name { get; set; }
         [Required]
+        [Display(Name="Department")]
         public Department Department { get; set; }
         public byte DepartmentId { get; set; }
+        [Display(Name="GPA")]
         public decimal GPA { get; set; }
 
     }

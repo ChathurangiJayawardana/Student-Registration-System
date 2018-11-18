@@ -23,6 +23,7 @@ namespace StudentRegistrationApplication.Models
         public DbSet<Student> Students { get; set; }
         public DbSet<Course> Courses { get; set; }
         public DbSet<AcademicType> AcademicTypes { get; set; }
+        public DbSet<Department> Departments { get; set; }
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

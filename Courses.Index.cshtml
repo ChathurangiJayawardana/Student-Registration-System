@@ -2,31 +2,35 @@
 @{
     ViewBag.Title = "Courses";
     Layout = "~/Views/Shared/_Layout.cshtml";
-
 }
+
 <h2>Courses</h2>
+
+<p>
+    @Html.ActionLink("New Course", "CourseForm", "Courses", null, new { @class = "btn btn-primary" })
+</p>
 <table class="table table-bordered table-hover">
- <thead>
-     <tr>
-         <th>Course</th>
+    <thead>
+        <tr>
+            <th>Course</th>
+            <th>Department</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var course in Model)
+        {
+        <tr>
+          
+            <td>@Html.ActionLink(course.Name, "Edit", "Courses", new { id = course.Id }, null)</td>
+            <td>@course.Department.DepartmentName</td>
 
         </tr>
-
-    </thead>
-
-    <tbody>
-
-        @foreach (var course in Model)
-
-        {
-            <tr>
-
-                <td>@course.Name</td>
-            </tr>
-
         }
-
     </tbody>
-
 </table>
+
+
+
+
+
 
