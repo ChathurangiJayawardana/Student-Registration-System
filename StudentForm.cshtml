@@ -8,7 +8,7 @@
 }
 
 <h2>New Student</h2>
-@using (Html.BeginForm("Create", "Students"))
+@using (Html.BeginForm("Save", "Students"))
 {
     <div class="form-group">
         @Html.LabelFor(m => m.Student.Name)
@@ -29,6 +29,7 @@
         @Html.LabelFor(m => m.Student.AcademicType)
         @Html.DropDownListFor(m => m.Student.AcademicTypeId, new SelectList(Model.AcademicTypes, "Id", "DegreeName"), "Select Degree Name", new { @class = "form-control" })
     </div>
+    @Html.HiddenFor(m => m.Student.Id)
     <button type="submit" class="btn btn-primary">Submit</button>
 
 

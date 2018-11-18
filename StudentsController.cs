@@ -26,30 +26,39 @@ namespace StudentRegistrationApplication.Controllers
             var student = _context.Students.SingleOrDefault(c => c.Id == id);
             if (student == null)
                 return HttpNotFound();
-            var viewModel = new NewStudentViewModel
+            var viewModel = new StudentFormViewModel
             {
                 Student = student,
                 AcademicTypes = _context.AcademicTypes.ToList()
             };
-            return View("New", viewModel);
+            return View("StudentForm", viewModel);
         }
 
         [HttpPost]
-        public ActionResult Create(Student student)
+        public ActionResult Save(Student student)
         {
-            _context.Students.Add(student);
-            _context.SaveChanges();
+            if (student.Id == 0)
+                _context.Students.Add(student);
+            else
+            {
+                var studentInDb = _context.Students.Single(c => c.Id == student.Id);
+                studentInDb.Name = student.Name;
+                studentInDb.RegisterDate = student.RegisterDate;
+                studentInDb.IndexNo = student.IndexNo;
+                studentInDb.AcademicType = student.AcademicType;
+            }
+                _context.SaveChanges();
             return RedirectToAction("Index", "Students");
         }
 
         public ActionResult New()
         {
             var academicTypes = _context.AcademicTypes.ToList();
-            var viewModel = new NewStudentViewModel
+            var viewModel = new StudentFormViewModel
             {
                 AcademicTypes = academicTypes
             };
-            return View(viewModel);
+            return View("StudentForm",viewModel);
         }
         // GET: Students
         public ViewResult Index()
