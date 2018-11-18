@@ -29,6 +29,7 @@
     <div class="form-group">
         @Html.LabelFor(m => m.Student.AcademicType)
         @Html.DropDownListFor(m => m.Student.AcademicTypeId, new SelectList(Model.AcademicTypes, "Id", "DegreeName"), "Select Degree Name", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Student.AcademicTypeId)
     </div>
     @Html.HiddenFor(m => m.Student.Id)
     <button type="submit" class="btn btn-primary">Submit</button>
