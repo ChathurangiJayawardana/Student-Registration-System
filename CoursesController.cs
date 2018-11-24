@@ -35,6 +35,17 @@ namespace StudentRegistrationApplication.Controllers
         [HttpPost]
         public ActionResult Save(Course course)
         {
+           if(!ModelState.IsValid)
+            {
+                var viewModel = new CourseFormViewModel
+                {
+                    Course = course,
+                    Departments=_context.Departments.ToList()
+
+                };
+
+                return View("CourseForm", viewModel);
+            }
             if (course.Id == 0)
                 _context.Courses.Add(course);
             else
