@@ -33,6 +33,7 @@ namespace StudentRegistrationApplication.Controllers
             return View("CourseForm", viewModel);
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(Course course)
         {
            if(!ModelState.IsValid)

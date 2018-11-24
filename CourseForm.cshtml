@@ -10,6 +10,7 @@
 
 @using (Html.BeginForm("Save", "Courses"))
 {
+    @Html.ValidationSummary(true,"Please fix the following errors")
     <div class="form-group">
         @Html.LabelFor(m => m.Course.Name)
         @Html.TextBoxFor(m => m.Course.Name, new { @class = "form-control" })
@@ -26,5 +27,11 @@
         @Html.ValidationMessageFor(m => m.Course.GPA)
     </div>
     @Html.HiddenFor(m => m.Course.Id)
+    @Html.AntiForgeryToken()
     <button type="submit" class="btn btn-primary">Submit</button>
 }
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    }
