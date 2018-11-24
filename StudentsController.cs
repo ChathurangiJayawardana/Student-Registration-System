@@ -35,6 +35,7 @@ namespace StudentRegistrationApplication.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(Student student)
         {
             if (!ModelState.IsValid)
@@ -68,6 +69,7 @@ namespace StudentRegistrationApplication.Controllers
             var academicTypes = _context.AcademicTypes.ToList();
             var viewModel = new StudentFormViewModel
             {
+                Student=new Student(),
                 AcademicTypes = academicTypes
             };
             return View("StudentForm",viewModel);
