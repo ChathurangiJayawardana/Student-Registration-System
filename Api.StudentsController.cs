@@ -1,4 +1,6 @@
-﻿using StudentRegistrationApplication.Models;
+﻿using AutoMapper;
+using StudentRegistrationApplication.Dtos;
+using StudentRegistrationApplication.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,35 +19,39 @@ namespace StudentRegistrationApplication.Controllers.Api
             _context = new ApplicationDbContext();
         }
         // GET /api/students
-        public IEnumerable<Student>GetStudents()
+        public IEnumerable<StudentDto>GetStudents()
         {
-            return _context.Students.ToList();
+            return _context.Students.ToList().Select(Mapper.Map<Student,StudentDto>);
         }
 
         //GET /api/studentrs/1
-        public Student GetStudent(int id)
+        public StudentDto GetStudent(int id)
         {
             var student = _context.Students.SingleOrDefault(c => c.Id == id);
 
             if (student == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
-            return student;
+            return Mapper.Map<Student,StudentDto>(student);
         }
 
         //POST /api/students
         [HttpPost]
-        public Student CreateStudent(Student student)
+        public StudentDto CreateStudent(StudentDto studentDto)
         {
             if (!ModelState.IsValid)
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
+
+            var student = Mapper.Map<StudentDto, Student>(studentDto);
             _context.Students.Add(student);
             _context.SaveChanges();
 
-            return student;
+            studentDto.Id = student.Id;
+            return studentDto;
         }
         //PUT /api/students/1
-        public void UpdateStudent(int id,Student student)
+        [HttpPut]
+        public void UpdateStudent(int id,StudentDto studentDto)
         {
             if (!ModelState.IsValid)
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
@@ -53,10 +59,9 @@ namespace StudentRegistrationApplication.Controllers.Api
             var studentInDb = _context.Students.SingleOrDefault(c => c.Id == id);
             if (studentInDb == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
-            studentInDb.Name = student.Name;
-            studentInDb.IndexNo = student.IndexNo;
-            studentInDb.RegisterDate = student.RegisterDate;
-            studentInDb.AcademicTypeId = student.AcademicTypeId;
+
+            Mapper.Map(studentDto, studentInDb);
+         
 
             _context.SaveChanges();
         }
