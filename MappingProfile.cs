@@ -13,7 +13,7 @@ namespace StudentRegistrationApplication.App_Start
         public MappingProfile()
         {
             Mapper.CreateMap<Student, StudentDto>();
-            Mapper.CreateMap<StudentDto, Student>();
+            Mapper.CreateMap<Course, CourseDto>();
         }
 
     }
