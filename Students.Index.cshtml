@@ -20,7 +20,7 @@
 {
     <script>
         $(document).ready(function () {
-            $("#students").DataTable({
+var table=  $("#students").DataTable({
                 ajax: {
                     url: "/api/students",
                     dataSrc: ""
@@ -36,7 +36,7 @@
              }
                     },
                     {
-                        data:"name"
+                        data:"academicType.degreeName"
                     },
                     {
                         data: "id",
@@ -58,7 +58,8 @@
                             url: "api/students/" + button.attr("data-student-id"),
                             method: "DELETE",
                             success: function () {
-                                button.parents("tr").remove();
+                                table.row(button.parents("tr")).remove().draw();
+                                
                             }
                         });
                     }
