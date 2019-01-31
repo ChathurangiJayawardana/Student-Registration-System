@@ -5,41 +5,50 @@
 }
 
 <h2>Students</h2>
-@if (!Model.Any())
-{
-    <p>we don't have any students yet. </p>
-}
-else
-{
-    <table id="students" class="table table-bordered table-hover">
-        <thead>
-            <tr>
-                <th>Student</th>
-                <th>DegreeName</th>
-                <th>Delete</th>
+<table id="students" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Student</th>
+            <th>DegreeName</th>
+            <th>Delete</th>
 
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var student in Model)
-            {
-            <tr>
-                <td>@Html.ActionLink(student.Name, "Edit", "Students", new { id = student.Id }, null)</td>
-                <td>@student.AcademicType.DegreeName</td>
-                <td>
-                    <button data-student-id="@student.Id"class="btn-link js-delete">Delete</button>
-                </td>
-            </tr>
-            }
-        </tbody>
-    </table>
-}
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
 @section scripts
 {
     <script>
         $(document).ready(function () {
-            $("#students").DataTable();
+            $("#students").DataTable({
+                ajax: {
+                    url: "/api/students",
+                    dataSrc: ""
 
+                },
+                columns: [
+
+                    {
+                        data: "name",
+                        render: function (data, type, student) {
+                            return "<a href='/students/edit/" + student.id + "'>" + student.name+ "</a>";
+
+             }
+                    },
+                    {
+                        data:"name"
+                    },
+                    {
+                        data: "id",
+                        render: function (data) {
+                            return "<button class='btn-link js-delete' data-student-id=" + data + " > Delete</button > ";
+                        }
+                    }
+                    
+                ]
+                });
+          
+           
             $("#students").on("click",".js-delete", function () {
                 var button = $(this);
 
