@@ -2,6 +2,7 @@
 using StudentRegistrationApplication.Dtos;
 using StudentRegistrationApplication.Models;
 using System;
+using System.Data.Entity;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -21,11 +22,13 @@ namespace StudentRegistrationApplication.Controllers.Api
         // GET /api/students
         public IHttpActionResult GetStudents()
         {
-          var studentDtos= _context.Students.ToList().Select(Mapper.Map<Student,StudentDto>);
+          var studentDtos= _context.Students
+                .Include(c =>c.AcademicType)
+                .ToList().Select(Mapper.Map<Student,StudentDto>);
             return Ok(studentDtos);
         }
 
-        //GET /api/studentrs/1
+        //GET /api/students/1
         public IHttpActionResult GetStudent(int id)
         {
             var student = _context.Students.SingleOrDefault(c => c.Id == id);

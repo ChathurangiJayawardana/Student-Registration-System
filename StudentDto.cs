@@ -19,5 +19,7 @@ namespace StudentRegistrationApplication.Dtos
         public DateTime? RegisterDate { get; set; }
 
         public byte AcademicTypeId { get; set; }
+
+        public AcademicTypeDto AcademicType { get; set; }
     }
 }
